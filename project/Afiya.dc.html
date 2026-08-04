@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="stylesheet" href="_ds/classical-2c067480-96a3-4643-911c-a785c82d49b7/styles.css">
+  <script src="_ds/classical-2c067480-96a3-4643-911c-a785c82d49b7/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--color-bg); }
+    a { color: var(--color-accent); }
+    a:hover { color: var(--color-accent-700); }
+  </style>
+</helmet>
+
+<div style="min-height: 100vh; padding: 56px 32px 80px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 44px; position: absolute; left: -6px; top: -12px">
+
+  <div style="max-width: 620px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+    <img src="assets/mms-logo-transparent.png" alt="Muslim Medics Southampton" style="width: 140px; height: 140px; object-fit: contain;">
+    <h1 style="margin: 0; font-size: 40px;">Afiya</h1>
+    <p style="margin: 0; font-size: 15px; color: color-mix(in srgb, var(--color-text) 65%, transparent); line-height: 1.6;">
+      A two-ended anonymous welfare line for Muslim Medics Southampton. A student shares a concern on the left with no name attached; the Welfare Team reads and replies privately on the right. Try both sides below — submit on the student app, then answer it as the Welfare Team.
+    </p>
+  </div><div style="display: flex; gap: 56px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="tag tag-outline" style="font-family: var(--font-heading); font-size: 12px;">Student app</span>
+      </div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+
+        <div style="height: 100%; overflow-y: auto; background: var(--color-bg); font-family: var(--font-body); color: var(--color-text); display: flex; flex-direction: column;">
+
+          <sc-if value="{{ studentScreenIsWelcome }}" hint-placeholder-val="{{ true }}">
+            
+          </sc-if>
+
+          <sc-if value="{{ studentScreenIsSubmit }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+              <div style="padding: 56px 20px 14px; border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; gap: 10px;">
+                <a href="#" onClick="{{ goStudentWelcome }}" style="font-size: 20px; text-decoration: none; line-height: 1;">‹</a>
+                <h3 style="margin: 0; font-size: 20px;">New concern</h3>
+              </div>
+              <div style="flex: 1; overflow-y: auto; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                  <label style="display: block; font-size: 14px; margin-bottom: 8px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">What's this about?</label>
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <sc-for list="{{ categoryChips }}" as="chip" hint-placeholder-count="6">
+                      <div style="{{ chip.style }}" onClick="{{ chip.onSelect }}">{{ chip.label }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div class="field">
+                  <label style="font-size: 14px;">Tell us what's going on</label>
+                  <textarea class="input" rows="7" placeholder="Write as much or as little as you like. Nothing here is linked to your name." value="{{ draftTextVal }}" onChange="{{ onDraftTextChange }}" style="font-size: 16px;"></textarea>
+                </div>
+              </div>
+              <div style="padding: 14px 20px 24px; border-top: 1px solid var(--color-divider);">
+                <button class="btn btn-primary btn-block" disabled="{{ false }}" onClick="{{ onSubmitConcern }}" style="font-size: 16px; padding: 12px;">Submit privately</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ studentScreenIsSubmitted }}" hint-placeholder-val="{{ false }}">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 56px 28px 28px; text-align: center;">
+              <div class="tag tag-accent" style="font-size: 13px;">Sent to the Welfare Team</div>
+              <p style="margin: 0; font-size: 16px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Your concern was submitted anonymously. Save this code — it's the only way to find your thread again.</p>
+              <div style="font-family: var(--font-heading); font-size: 34px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; color: var(--color-accent-800); border: 1px solid var(--color-accent); border-radius: 8px; padding: 10px 22px;">{{ activeCode }}</div>
+              <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 6px;">
+                <button class="btn btn-secondary btn-block" onClick="{{ onCopyCode }}" style="font-size: 16px; padding: 12px;">Copy code</button>
+                <button class="btn btn-primary btn-block" onClick="{{ goStudentThreadFromSubmitted }}" style="font-size: 16px; padding: 12px;">View my thread</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ studentScreenIsCheckCode }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+              <div style="padding: 56px 20px 14px; border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; gap: 10px;">
+                <a href="#" onClick="{{ goStudentWelcome }}" style="font-size: 20px; text-decoration: none; line-height: 1;">‹</a>
+                <h3 style="margin: 0; font-size: 20px;">Find my thread</h3>
+              </div>
+              <div style="flex: 1; padding: 22px 20px;">
+                <div class="field">
+                  <label style="font-size: 14px;">Your concern code</label>
+                  <input class="input" placeholder="AFY-0000" value="{{ checkInputVal }}" onChange="{{ onCheckInputChange }}" style="font-size: 16px;">
+                </div>
+                <sc-if value="{{ checkError }}" hint-placeholder-val="{{ false }}">
+                  <p style="color: var(--color-accent-700); font-size: 14px;">{{ checkError }}</p>
+                </sc-if>
+                <button class="btn btn-primary btn-block" onClick="{{ onSubmitCheckCode }}" style="margin-top: 8px; font-size: 16px; padding: 12px;">Continue</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ studentScreenIsThread }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+              <div style="padding: 56px 20px 12px; border-bottom: 1px solid var(--color-divider);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <a href="#" onClick="{{ goStudentWelcome }}" style="font-size: 20px; text-decoration: none; line-height: 1;">‹</a>
+                  <h3 style="margin: 0; font-size: 20px;">My concern</h3>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; padding-left: 30px;">
+                  <span class="tag tag-neutral" style="font-size: 13px;">{{ studentConcernCategoryLabel }}</span>
+                  <span style="{{ studentConcernStatusStyle }}">{{ studentConcernStatusLabel }}</span>
+                </div>
+              </div>
+              <div style="flex: 1; overflow-y: auto; padding: 16px 0; display: flex; flex-direction: column; gap: 12px;">
+                <sc-for list="{{ studentMessages }}" as="m" hint-placeholder-count="1">
+                  <div style="{{ m.rowStyle }}">
+                    <div style="{{ m.bubbleStyle }}">{{ m.text }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding: 12px 16px 22px; border-top: 1px solid var(--color-divider); display: flex; gap: 8px; align-items: flex-end;">
+                <textarea class="input" rows="1" placeholder="Send a follow-up…" value="{{ followUpVal }}" onChange="{{ onFollowUpChange }}" style="flex: 1; min-height: 40px; font-size: 16px;"></textarea>
+                <button class="btn btn-primary" onClick="{{ onSendFollowUp }}" style="font-size: 16px; padding: 10px 16px;">Send</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ studentScreenIsSettings }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+              <div style="padding: 56px 20px 14px; border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; gap: 10px; margin-top: 22px; margin-bottom: 22px">
+                <a href="#" onClick="{{ goStudentWelcome }}" style="font-size: 20px; text-decoration: none; line-height: 1;">‹</a>
+                <h3 style="margin: 0; font-size: 20px;">How Afiya works</h3>
+              </div>
+              <div style="flex: 1; overflow-y: auto; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent);">
+                <p>Afiya was built for students to raise a concern without anyone knowing it was them.</p>
+                <p><strong style="color: var(--color-text);">No sign-up.</strong> You never give a name, email or student ID.</p>
+                <p><strong style="color: var(--color-text);">Your code is your only key.</strong> It's how you and only you can return to read a reply. If you lose it, the thread can't be recovered.</p>
+                <p><strong style="color: var(--color-text);">The Welfare Team never sees who you are.</strong> They see your message, your chosen category, and your code — nothing else.</p>
+                <p><strong style="color: var(--color-text);">Replies are private.</strong> No other student can see your concern or its replies, and your concern is never shared outside the Welfare Team.</p><p><strong style="color: var(--color-accent-2-700); font-weight: 700;">DISCLAIMER:</strong>&nbsp;In the event of a safeguarding concern, our team may advise you to contact Student Services for further support with your welfare query.&nbsp;</p>
+              </div>
+            </div>
+          </sc-if>
+
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; padding: 56px 28px 28px; text-align: center;">
+              
+              <img src="assets/mms-logo-transparent.png" alt="Muslim Medics Southampton" style="width: 147px; height: 156px; object-fit: contain; margin-top: -48px; margin-bottom: 9px; margin-right: -45px; margin-left: -45px">
+              <div style="margin-top: -31px; margin-bottom: 31px; padding-bottom: 0px; padding-top: 0px">
+                
+                <h2 style="margin: 0 0 4px; font-size: 50px; margin-top: 55px; font-weight: 700; margin-bottom: 6px">Afiya</h2><div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-top: 12px; margin-bottom: 28px">Muslim Medics Southampton</div>
+              </div><img src="./untitled-3-msev8i1x-zn5w.png" alt="untitled-3" width="3000" height="866" style="max-width: 100%; height: 75px; display: block; object-fit: cover; width: 261px; aspect-ratio: 3000 / 866; margin-top: -44px; margin-bottom: 35px"><p style="font-size: 16px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0; margin-top: -18px; margin-right: 27px; margin-bottom: -18px; margin-left: 27px">Share what's on your mind, privately. No account, no name — just a code only you hold.</p>
+              <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 10px;">
+                <button class="btn btn-primary btn-block" onClick="{{ goStudentSubmit }}" style="font-size: 20px; padding: 12px">Share a concern</button>
+                <button class="btn btn-secondary btn-block" onClick="{{ goStudentCheckCode }}" style="font-size: 18px; padding: 12px">I already have a code</button>
+              </div>
+              <a href="#" onClick="{{ goStudentSettings }}" style="font-size: 15px; margin-top: 4px;">How does Afiya work?</a>
+            </div></div>
+      </x-import>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="tag tag-outline" style="font-family: var(--font-heading); font-size: 12px;">Welfare Team app</span>
+      </div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+
+        <div style="height: 100%; overflow-y: auto; background: var(--color-bg); font-family: var(--font-body); color: var(--color-text); display: flex; flex-direction: column;">
+
+          <sc-if value="{{ welfareScreenIsLogin }}" hint-placeholder-val="{{ true }}">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; padding: 40px 28px 28px; text-align: center;">
+              <img src="assets/mms-logo-transparent.png" alt="Muslim Medics Southampton" style="width: 100px; height: 100px; object-fit: contain;">
+              <div>
+                <h2 style="margin: 0 0 4px; font-size: 26px;">Welfare Team</h2>
+                <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700);">Sign in</div>
+              </div>
+              <p style="font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0;">Access is limited to approved Welfare Team members. Students never see this screen.</p>
+              <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 8px; text-align: left;">
+                <div class="field">
+                  <label style="font-size: 14px;">Email</label>
+                  <input class="input" type="email" value="{{ loginEmailVal }}" onChange="{{ onLoginEmailChange }}" style="font-size: 16px;">
+                </div>
+                <div class="field">
+                  <label style="font-size: 14px;">Password</label>
+                  <input class="input" type="password" placeholder="••••••••" value="{{ loginPasswordVal }}" onChange="{{ onLoginPasswordChange }}" style="font-size: 16px;">
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block" onClick="{{ onSubmitLogin }}" style="font-size: 16px; padding: 12px; margin-top: 4px;">Log in</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ welfareScreenIsInbox }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+              <div style="padding: 56px 20px 12px; border-bottom: 1px solid var(--color-divider); display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                  <h3 style="margin: 0; font-size: 22px;">Welfare inbox</h3>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <sc-if value="{{ needsReplyCount }}" hint-placeholder-val="{{ false }}">
+                      <span class="tag tag-accent" style="font-size: 13px;">{{ needsReplyCount }} new</span>
+                    </sc-if>
+                    <a href="#" onClick="{{ onLogout }}" style="font-size: 13px;">Log out</a>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 6px;">
+                  <div style="{{ filterAllStyle }}" onClick="{{ onFilterAll }}">All</div>
+                  <div style="{{ filterNeedsStyle }}" onClick="{{ onFilterNeeds }}">Needs reply</div>
+                  <div style="{{ filterResolvedStyle }}" onClick="{{ onFilterResolved }}">Resolved</div>
+                </div>
+              </div>
+              <div style="flex: 1; overflow-y: auto;">
+                <sc-if value="{{ welfareListEmpty }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding: 40px 24px; text-align: center; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 15px; line-height: 1.6;">
+                    No concerns yet. Submit one from the student app on the left to see it appear here.
+                  </div>
+                </sc-if>
+                <sc-for list="{{ welfareListItems }}" as="item" hint-placeholder-count="2">
+                  <div onClick="{{ item.onOpen }}" style="padding: 14px 20px; border-bottom: 1px solid var(--color-divider); cursor: pointer; display: flex; flex-direction: column; gap: 6px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span class="tag tag-neutral" style="font-size: 13px;">{{ item.categoryLabel }}</span>
+                      <span style="{{ item.tagStyle }}">{{ item.tagLabel }}</span>
+                    </div>
+                    <div style="font-size: 16px; line-height: 1.4;">{{ item.snippet }}</div>
+                    <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 50%, transparent); font-variant-numeric: tabular-nums;">{{ item.code }} · {{ item.time }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ welfareScreenIsDetail }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; height: 100%;">
+              <div style="padding: 56px 20px 12px; border-bottom: 1px solid var(--color-divider);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <a href="#" onClick="{{ onBackToInbox }}" style="font-size: 20px; text-decoration: none; line-height: 1;">‹</a>
+                  <h3 style="margin: 0; font-size: 20px; font-variant-numeric: tabular-nums;">{{ welfareConcernCode }}</h3>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; padding-left: 30px;">
+                  <span class="tag tag-neutral" style="font-size: 13px;">{{ welfareConcernCategoryLabel }}</span>
+                  <span style="{{ welfareConcernStatusStyle }}">{{ welfareConcernStatusLabel }}</span>
+                </div>
+              </div>
+              <div style="flex: 1; overflow-y: auto; padding: 16px 0; display: flex; flex-direction: column; gap: 12px;">
+                <sc-for list="{{ welfareMessages }}" as="m" hint-placeholder-count="1">
+                  <div style="{{ m.rowStyle }}">
+                    <div style="{{ m.bubbleStyle }}">{{ m.text }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="padding: 10px 16px; border-top: 1px solid var(--color-divider); display: flex; gap: 8px;">
+                <sc-if value="{{ welfareConcernIsResolved }}" hint-placeholder-val="{{ false }}">
+                  <button class="btn btn-secondary btn-block" onClick="{{ onReopen }}" style="font-size: 16px; padding: 12px;">Reopen thread</button>
+                </sc-if>
+                <sc-if value="{{ welfareConcernResolvedInverse }}" hint-placeholder-val="{{ true }}">
+                  <button class="btn btn-secondary btn-block" onClick="{{ onMarkResolved }}" style="font-size: 16px; padding: 12px;">Mark resolved</button>
+                </sc-if>
+              </div>
+              <div style="padding: 0 16px 22px; display: flex; gap: 8px; align-items: flex-end;">
+                <textarea class="input" rows="1" placeholder="Reply privately…" value="{{ replyTextVal }}" onChange="{{ onReplyTextChange }}" style="flex: 1; min-height: 40px; font-size: 16px;"></textarea>
+                <button class="btn btn-primary" onClick="{{ onSendReply }}" style="font-size: 16px; padding: 10px 16px;">Send</button>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </x-import>
+    </div>
+
+  </div>
+
+  
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+const CATEGORIES = [
+  { id: 'academic', label: 'Academic & workload' },
+  { id: 'financial', label: 'Financial' },
+  { id: 'wellbeing', label: 'Mental health & wellbeing' },
+  { id: 'faith', label: 'Faith & belonging' },
+  { id: 'conduct', label: 'Harassment or discrimination' },
+  { id: 'placement', label: 'Clinical placement' },
+  { id: 'other', label: 'Something else' },
+];
+
+const STATUS_META = {
+  needs_reply: { label: 'Needs reply', style: { background: 'var(--color-accent-100)', color: 'var(--color-accent-800)' } },
+  answered: { label: 'Answered', style: { background: 'transparent', color: 'var(--color-accent)', border: '1px solid var(--color-accent)' } },
+  resolved: { label: 'Resolved', style: { background: 'var(--color-neutral-100)', color: 'var(--color-neutral-800)' } },
+};
+
+class Component extends DCLogic {
+  state = {
+    concerns: [],
+    student: { screen: 'welcome', activeCode: null, draftCategory: null, draftText: '', checkInput: '', checkError: '', followUp: '' },
+    welfare: { screen: 'login', activeId: null, filter: 'all', replyText: '', loginEmail: '', loginPassword: '' },
+  };
+
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem('afiya-demo-concerns-v1');
+      if (raw) this.setState({ concerns: JSON.parse(raw) });
+    } catch (e) {}
+  }
+
+  persist(concerns) {
+    try { localStorage.setItem('afiya-demo-concerns-v1', JSON.stringify(concerns)); } catch (e) {}
+  }
+
+  genCode() { return 'AFY-' + Math.floor(1000 + Math.random() * 9000); }
+
+  categoryLabel(id) {
+    const c = CATEGORIES.find(x => x.id === id);
+    return c ? c.label : 'Something else';
+  }
+
+  timeAgo(ts) {
+    const diff = Math.max(0, Date.now() - ts);
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    return Math.floor(hrs / 24) + 'd ago';
+  }
+
+  segStyle(active) {
+    return {
+      padding: '7px 13px', fontSize: 13, borderRadius: 999, cursor: 'pointer',
+      background: active ? 'var(--color-accent)' : 'transparent',
+      color: active ? '#fff' : 'var(--color-text)',
+      border: '1px solid ' + (active ? 'var(--color-accent)' : 'var(--color-divider)'),
+    };
+  }
+
+  goStudent(screen) { this.setState(s => ({ student: { ...s.student, screen } })); }
+  setDraftCategory(id) { this.setState(s => ({ student: { ...s.student, draftCategory: id } })); }
+  setDraftText(e) { const v = e.target.value; this.setState(s => ({ student: { ...s.student, draftText: v } })); }
+
+  submitConcern() {
+    const { draftCategory, draftText } = this.state.student;
+    if (!draftCategory || !draftText.trim()) return;
+    const code = this.genCode();
+    const concern = { id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), code, category: draftCategory, text: draftText.trim(), submittedAt: Date.now(), status: 'needs_reply', replies: [] };
+    const concerns = [...this.state.concerns, concern];
+    this.persist(concerns);
+    this.setState(s => ({ concerns, student: { ...s.student, screen: 'submitted', activeCode: code, draftCategory: null, draftText: '' } }));
+  }
+
+  copyCode() {
+    const code = this.state.student.activeCode;
+    if (code && navigator.clipboard) navigator.clipboard.writeText(code).catch(() => {});
+  }
+
+  setCheckInput(e) { const v = e.target.value.toUpperCase(); this.setState(s => ({ student: { ...s.student, checkInput: v, checkError: '' } })); }
+
+  submitCheckCode() {
+    const code = this.state.student.checkInput.trim();
+    const found = this.state.concerns.find(c => c.code === code);
+    if (found) this.setState(s => ({ student: { ...s.student, screen: 'thread', activeCode: code, checkError: '' } }));
+    else this.setState(s => ({ student: { ...s.student, checkError: 'No concern found for that code.' } }));
+  }
+
+  setFollowUp(e) { const v = e.target.value; this.setState(s => ({ student: { ...s.student, followUp: v } })); }
+
+  sendFollowUp() {
+    const text = this.state.student.followUp.trim();
+    if (!text) return;
+    const code = this.state.student.activeCode;
+    const concerns = this.state.concerns.map(c => c.code === code ? { ...c, status: 'needs_reply', replies: [...c.replies, { from: 'student', text, at: Date.now() }] } : c);
+    this.persist(concerns);
+    this.setState(s => ({ concerns, student: { ...s.student, followUp: '' } }));
+  }
+
+  goWelfare(screen) { this.setState(s => ({ welfare: { ...s.welfare, screen } })); }
+  setLoginEmail(e) { const v = e.target.value; this.setState(s => ({ welfare: { ...s.welfare, loginEmail: v } })); }
+  setLoginPassword(e) { const v = e.target.value; this.setState(s => ({ welfare: { ...s.welfare, loginPassword: v } })); }
+  submitLogin() { this.setState(s => ({ welfare: { ...s.welfare, screen: 'inbox' } })); }
+  logout() { this.setState(s => ({ welfare: { ...s.welfare, screen: 'login', activeId: null, loginEmail: '', loginPassword: '' } })); }
+  setFilter(f) { this.setState(s => ({ welfare: { ...s.welfare, filter: f } })); }
+  openDetail(id) { this.setState(s => ({ welfare: { ...s.welfare, screen: 'detail', activeId: id } })); }
+  backToInbox() { this.setState(s => ({ welfare: { ...s.welfare, screen: 'inbox', activeId: null } })); }
+  setReplyText(e) { const v = e.target.value; this.setState(s => ({ welfare: { ...s.welfare, replyText: v } })); }
+
+  sendReply() {
+    const text = this.state.welfare.replyText.trim();
+    if (!text) return;
+    const id = this.state.welfare.activeId;
+    const concerns = this.state.concerns.map(c => c.id === id ? { ...c, status: 'answered', replies: [...c.replies, { from: 'welfare', text, at: Date.now() }] } : c);
+    this.persist(concerns);
+    this.setState(s => ({ concerns, welfare: { ...s.welfare, replyText: '' } }));
+  }
+
+  markResolved() {
+    const id = this.state.welfare.activeId;
+    const concerns = this.state.concerns.map(c => c.id === id ? { ...c, status: 'resolved' } : c);
+    this.persist(concerns);
+    this.setState({ concerns });
+  }
+
+  reopen() {
+    const id = this.state.welfare.activeId;
+    const concerns = this.state.concerns.map(c => c.id === id ? { ...c, status: 'answered' } : c);
+    this.persist(concerns);
+    this.setState({ concerns });
+  }
+
+  renderVals() {
+    const st = this.state.student;
+    const wf = this.state.welfare;
+    const concerns = this.state.concerns;
+
+    const selectedStyle = { border: '1px solid var(--color-accent)', background: 'var(--color-accent-100)', color: 'var(--color-accent-800)' };
+    const unselectedStyle = { border: '1px solid var(--color-divider)', background: 'transparent', color: 'var(--color-text)' };
+
+    const categoryChips = CATEGORIES.map(c => ({
+      id: c.id, label: c.label,
+      style: { ...(st.draftCategory === c.id ? selectedStyle : unselectedStyle), padding: '9px 16px', borderRadius: 999, fontSize: 15, fontFamily: 'var(--font-body)', cursor: 'pointer', whiteSpace: 'nowrap' },
+      onSelect: () => this.setDraftCategory(c.id),
+    }));
+
+    const buildMessages = (concern, mineFrom, mineLabel, otherLabel) => {
+      if (!concern) return [];
+      const all = [{ key: 'orig', from: 'student', text: concern.text, at: concern.submittedAt }, ...concern.replies.map((r, i) => ({ key: 'r' + i, ...r }))];
+      return all.map(m => {
+        const mine = m.from === mineFrom;
+        return {
+          ...m,
+          rowStyle: { display: 'flex', justifyContent: mine ? 'flex-end' : 'flex-start', padding: '0 16px' },
+          bubbleStyle: {
+            maxWidth: '78%', padding: '11px 15px', borderRadius: 14, fontSize: 16, lineHeight: 1.5,
+            background: mine ? 'var(--color-accent-100)' : 'var(--color-neutral-100)',
+            color: mine ? 'var(--color-accent-900)' : 'var(--color-text)',
+            border: mine ? '1px solid var(--color-accent-300)' : '1px solid var(--color-divider)',
+          },
+          label: mine ? mineLabel : otherLabel,
+        };
+      });
+    };
+
+    const studentConcern = concerns.find(c => c.code === st.activeCode) || null;
+    const studentMessages = buildMessages(studentConcern, 'student', 'You', 'Welfare Team');
+
+    const filterOrder = { needs_reply: 0, answered: 1, resolved: 2 };
+    let welfareList = [...concerns].sort((a, b) => filterOrder[a.status] - filterOrder[b.status] || a.submittedAt - b.submittedAt);
+    if (wf.filter === 'needs_reply') welfareList = welfareList.filter(c => c.status === 'needs_reply');
+    if (wf.filter === 'resolved') welfareList = welfareList.filter(c => c.status === 'resolved');
+
+    const welfareListItems = welfareList.map(c => ({
+      id: c.id, code: c.code,
+      categoryLabel: this.categoryLabel(c.category),
+      snippet: c.text.length > 72 ? c.text.slice(0, 72) + '…' : c.text,
+      time: this.timeAgo(c.submittedAt),
+      tagStyle: { ...STATUS_META[c.status].style, display: 'inline-flex', alignItems: 'center', fontSize: 13, padding: '4px 10px', borderRadius: 6 },
+      tagLabel: STATUS_META[c.status].label,
+      onOpen: () => this.openDetail(c.id),
+    }));
+
+    const needsReplyCount = concerns.filter(c => c.status === 'needs_reply').length;
+    const welfareConcern = concerns.find(c => c.id === wf.activeId) || null;
+    const welfareMessages = buildMessages(welfareConcern, 'welfare', 'Welfare Team', 'Student');
+
+    return {
+      studentScreenIsWelcome: st.screen === 'welcome',
+      studentScreenIsSubmit: st.screen === 'submit',
+      studentScreenIsSubmitted: st.screen === 'submitted',
+      studentScreenIsCheckCode: st.screen === 'checkCode',
+      studentScreenIsThread: st.screen === 'thread',
+      studentScreenIsSettings: st.screen === 'settings',
+      goStudentSubmit: () => this.goStudent('submit'),
+      goStudentCheckCode: () => this.goStudent('checkCode'),
+      goStudentSettings: () => this.goStudent('settings'),
+      goStudentWelcome: () => this.goStudent('welcome'),
+      goStudentThreadFromSubmitted: () => this.goStudent('thread'),
+      categoryChips,
+      draftTextVal: st.draftText,
+      onDraftTextChange: (e) => this.setDraftText(e),
+      onSubmitConcern: () => this.submitConcern(),
+      activeCode: st.activeCode,
+      onCopyCode: () => this.copyCode(),
+      checkInputVal: st.checkInput,
+      onCheckInputChange: (e) => this.setCheckInput(e),
+      checkError: st.checkError,
+      onSubmitCheckCode: () => this.submitCheckCode(),
+      studentConcernCategoryLabel: studentConcern ? this.categoryLabel(studentConcern.category) : '',
+      studentConcernStatusLabel: studentConcern ? STATUS_META[studentConcern.status].label : '',
+      studentConcernStatusStyle: studentConcern ? { ...STATUS_META[studentConcern.status].style, display: 'inline-flex', fontSize: 13, padding: '4px 10px', borderRadius: 6 } : {},
+      studentMessages,
+      followUpVal: st.followUp,
+      onFollowUpChange: (e) => this.setFollowUp(e),
+      onSendFollowUp: () => this.sendFollowUp(),
+
+      welfareScreenIsLogin: wf.screen === 'login',
+      welfareScreenIsInbox: wf.screen === 'inbox',
+      welfareScreenIsDetail: wf.screen === 'detail',
+      loginEmailVal: wf.loginEmail,
+      onLoginEmailChange: (e) => this.setLoginEmail(e),
+      loginPasswordVal: wf.loginPassword,
+      onLoginPasswordChange: (e) => this.setLoginPassword(e),
+      onSubmitLogin: () => this.submitLogin(),
+      onLogout: () => this.logout(),
+      onFilterAll: () => this.setFilter('all'),
+      onFilterNeeds: () => this.setFilter('needs_reply'),
+      onFilterResolved: () => this.setFilter('resolved'),
+      filterAllStyle: this.segStyle(wf.filter === 'all'),
+      filterNeedsStyle: this.segStyle(wf.filter === 'needs_reply'),
+      filterResolvedStyle: this.segStyle(wf.filter === 'resolved'),
+      needsReplyCount,
+      welfareListItems,
+      welfareListEmpty: welfareListItems.length === 0,
+      onBackToInbox: () => this.backToInbox(),
+      welfareConcernCategoryLabel: welfareConcern ? this.categoryLabel(welfareConcern.category) : '',
+      welfareConcernStatusLabel: welfareConcern ? STATUS_META[welfareConcern.status].label : '',
+      welfareConcernStatusStyle: welfareConcern ? { ...STATUS_META[welfareConcern.status].style, display: 'inline-flex', fontSize: 13, padding: '4px 10px', borderRadius: 6 } : {},
+      welfareConcernCode: welfareConcern ? welfareConcern.code : '',
+      welfareConcernIsResolved: welfareConcern ? welfareConcern.status === 'resolved' : false,
+      welfareConcernResolvedInverse: welfareConcern ? welfareConcern.status !== 'resolved' : true,
+      welfareMessages,
+      replyTextVal: wf.replyText,
+      onReplyTextChange: (e) => this.setReplyText(e),
+      onSendReply: () => this.sendReply(),
+      onMarkResolved: () => this.markResolved(),
+      onReopen: () => this.reopen(),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
