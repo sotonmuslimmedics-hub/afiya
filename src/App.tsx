@@ -9,8 +9,11 @@ import Login from './pages/welfare/Login';
 import Inbox from './pages/welfare/Inbox';
 import Detail from './pages/welfare/Detail';
 import RequireAuth from './pages/welfare/RequireAuth';
+import { useDocumentIcons } from './lib/useDocumentIcons';
 
 export default function App() {
+  useDocumentIcons();
+
   return (
     <div className="app-shell">
       <div className="app-screen">

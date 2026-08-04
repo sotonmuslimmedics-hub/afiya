@@ -1,0 +1,15 @@
+{
+  "name": "Afiya Welfare Team",
+  "short_name": "Afiya Welfare",
+  "description": "Welfare Team inbox for the Afiya anonymous welfare line — Muslim Medics Southampton.",
+  "start_url": "/welfare",
+  "scope": "/welfare",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "/icon-192-welfare.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512-welfare.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/maskable-icon-512-welfare.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
