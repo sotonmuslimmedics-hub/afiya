@@ -16,7 +16,10 @@
 --     RPCs; access control therefore boils down to "who has an account",
 --     which you manage by inviting people in the Supabase dashboard.
 
-create extension if not exists pgcrypto;
+-- Supabase installs pgcrypto into the `extensions` schema by default, not
+-- `public` — pin it explicitly so this is deterministic regardless of the
+-- search_path active when this migration runs.
+create extension if not exists pgcrypto with schema extensions;
 
 create table if not exists concerns (
   id uuid primary key default gen_random_uuid(),
@@ -93,7 +96,7 @@ create or replace function submit_concern(p_category text, p_message text)
 returns text
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_code text;
@@ -111,7 +114,7 @@ begin
   end if;
 
   loop
-    v_code := 'AFY-' || upper(encode(gen_random_bytes(5), 'hex'));
+    v_code := 'AFY-' || upper(encode(extensions.gen_random_bytes(5), 'hex'));
     begin
       insert into concerns (code, category, message)
       values (v_code, p_category, trim(p_message))
