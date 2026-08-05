@@ -35,9 +35,6 @@ export default function Login() {
           <h2 style={{ margin: '0 0 4px', fontSize: 26 }}>Welfare Team</h2>
           <div className="hero-kicker" style={{ marginTop: 0 }}>Sign in</div>
         </div>
-        <p className="text-muted" style={{ fontSize: 15, lineHeight: 1.6, margin: 0 }}>
-          Access is limited to approved Welfare Team members. Students never see this screen.
-        </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', marginTop: 8, textAlign: 'left' }}>
           <div className="field">
             <label>Email</label>
