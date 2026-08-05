@@ -4,7 +4,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 export default function Submitted() {
   const location = useLocation();
   const navigate = useNavigate();
-  const code = (location.state as { code?: string } | null)?.code;
+  const code = (location.state as { code?: string } | null)?.code ?? sessionStorage.getItem('afiya-active-code');
 
   useEffect(() => {
     if (code) sessionStorage.setItem('afiya-active-code', code);

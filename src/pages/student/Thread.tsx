@@ -59,6 +59,20 @@ export default function Thread() {
     );
   }
 
+  if (error && !thread) {
+    return (
+      <>
+        <div className="app-header">
+          <a href="#" className="app-header-back" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
+            ‹
+          </a>
+          <h3>My concern</h3>
+        </div>
+        <p className="error-text" style={{ padding: '16px 20px' }}>{error}</p>
+      </>
+    );
+  }
+
   if (!thread) return <div className="center-loading">Loading…</div>;
 
   const status = STATUS_META[thread.status];

@@ -59,6 +59,20 @@ export default function Detail() {
     }
   }
 
+  if (error && !concern) {
+    return (
+      <>
+        <div className="app-header">
+          <a href="#" className="app-header-back" onClick={(e) => { e.preventDefault(); navigate('/welfare'); }}>
+            ‹
+          </a>
+          <h3>Concern</h3>
+        </div>
+        <p className="error-text" style={{ padding: '16px 20px' }}>{error}</p>
+      </>
+    );
+  }
+
   if (!concern) return <div className="center-loading">Loading…</div>;
 
   const status = STATUS_META[concern.status];
