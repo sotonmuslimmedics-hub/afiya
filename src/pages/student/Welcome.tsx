@@ -29,6 +29,9 @@ export default function Welcome() {
       <Link to="/how-it-works" style={{ fontSize: 15, marginTop: 4 }}>
         How does Afiya work?
       </Link>
+      <Link to="/welfare/login" className="text-muted" style={{ fontSize: 13, marginTop: 22 }}>
+        Welfare Team login
+      </Link>
     </div>
   );
 }
