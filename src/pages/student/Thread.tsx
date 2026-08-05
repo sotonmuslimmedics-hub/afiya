@@ -78,8 +78,8 @@ export default function Thread() {
         </div>
       </div>
       <div className="thread">
-        <div className="msg-row is-theirs">
-          <div className="msg-bubble is-theirs">{thread.message}</div>
+        <div className="msg-row is-mine">
+          <div className="msg-bubble is-mine">{thread.message}</div>
         </div>
         {thread.replies.map((m, i) => {
           const mine = m.sender === 'student';
