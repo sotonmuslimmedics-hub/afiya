@@ -44,7 +44,7 @@ export default function Inbox() {
     return [...items].sort(
       (a, b) =>
         STATUS_ORDER[a.status] - STATUS_ORDER[b.status] ||
-        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
   }, [items]);
 
