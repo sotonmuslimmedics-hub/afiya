@@ -1,6 +1,25 @@
 /* Classical design tokens, ported from the Claude Design export
    (project/_ds/classical-.../styles.css) for the production app. */
 
+/* Self-hosted rather than loaded from Google's CDN — avoids sending every
+   visitor's IP address to Google on every page load, which matters for a
+   privacy-focused anonymous app. Both files are variable fonts covering
+   their whole weight range. */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-variable.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/lora-variable.woff2') format('woff2-variations');
+}
+
 :root {
   --color-bg: #f3f2f2;
   --color-surface: #eae9e9;

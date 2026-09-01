@@ -8,6 +8,7 @@ const Submitted = lazy(() => import('./pages/student/Submitted'));
 const FindCode = lazy(() => import('./pages/student/FindCode'));
 const Thread = lazy(() => import('./pages/student/Thread'));
 const HowItWorks = lazy(() => import('./pages/student/HowItWorks'));
+const Privacy = lazy(() => import('./pages/student/Privacy'));
 
 const Login = lazy(() => import('./pages/welfare/Login'));
 const Inbox = lazy(() => import('./pages/welfare/Inbox'));
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/find" element={<FindCode />} />
             <Route path="/thread/:code" element={<Thread />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/privacy" element={<Privacy />} />
 
             <Route path="/welfare/login" element={<Login />} />
             <Route

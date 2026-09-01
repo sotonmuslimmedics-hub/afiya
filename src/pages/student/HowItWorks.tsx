@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function HowItWorks() {
   const navigate = useNavigate();
@@ -31,6 +31,10 @@ export default function HowItWorks() {
         <p className="info-disclaimer">
           <strong>DISCLAIMER:</strong>&nbsp;In the event of a safeguarding concern, our team may advise you
           to contact Student Services for further support with your welfare query.
+        </p>
+        <p>
+          <Link to="/privacy">Read the full privacy notice</Link> for exactly what's stored and
+          what isn't.
         </p>
       </div>
     </>

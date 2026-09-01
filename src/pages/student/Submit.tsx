@@ -59,6 +59,10 @@ export default function Submit() {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
+          <p className="text-muted" style={{ fontSize: 13, margin: '8px 0 0' }}>
+            The system never links this to you — but if you'd rather stay fully anonymous, avoid
+            including your name or other identifying details in the message itself.
+          </p>
         </div>
         {error && <p className="error-text">{error}</p>}
       </div>
