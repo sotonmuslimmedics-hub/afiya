@@ -44,9 +44,12 @@ export default function Privacy() {
         </p>
 
         <p>
-          <strong>How long we keep it.</strong> [Society to confirm a retention period — e.g.
-          resolved concerns deleted after N months.] Until a retention policy is set, concerns are
-          kept indefinitely; the Welfare Team can manually delete a concern on request.
+          <strong>How long we keep it.</strong> Concerns and replies aren't deleted individually —
+          everything is permanently cleared at the end of each academic year, in line with
+          committee handover. We keep records for the year so that conversations can continue
+          properly and so responses can be reviewed for quality and appropriateness. This isn't
+          about holding onto your concern longer than necessary — it's the same annual reset that
+          applies to every submission.
         </p>
 
         <p>
@@ -57,8 +60,8 @@ export default function Privacy() {
         </p>
 
         <p>
-          <strong>Questions or requests.</strong> Contact [Welfare Team / society email] with any
-          question about this notice, or to request a concern be deleted.
+          <strong>Questions.</strong> Contact [Welfare Team / society email] with any question
+          about this notice.
         </p>
       </div>
     </>
