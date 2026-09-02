@@ -50,6 +50,17 @@ export default function Submit() {
             ))}
           </div>
         </div>
+        <div className="crisis-notice">
+          <span className="crisis-notice-title">If you're in immediate danger or crisis, please don't wait for a reply here.</span>
+          Call <a href="tel:999">999</a> (or <a href="tel:112">112</a> from a mobile) if there's
+          immediate risk to life. For urgent support any time, day or night, contact the
+          University's Student Hub: <a href="tel:02380599599">02380 599 599</a> or{' '}
+          <a href="mailto:studenthub@soton.ac.uk">studenthub@soton.ac.uk</a>. Campus security:{' '}
+          <a href="tel:02380593311">02380 593311</a>.
+          <span className="crisis-notice-footnote">
+            Afiya is not monitored in real time, and replies may take time.
+          </span>
+        </div>
         <div className="field">
           <label>Tell us what's going on</label>
           <textarea

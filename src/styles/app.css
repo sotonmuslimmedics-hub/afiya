@@ -297,6 +297,30 @@
   font-size: 14px;
 }
 
+.crisis-notice {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-accent-2-300);
+  background: var(--color-accent-2-100);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.crisis-notice-title {
+  color: var(--color-accent-2-700);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+.crisis-notice a {
+  font-weight: 600;
+}
+.crisis-notice-footnote {
+  display: block;
+  margin-top: 8px;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  font-size: 13px;
+}
+
 .center-loading {
   flex: 1;
   display: flex;
