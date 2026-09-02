@@ -60,8 +60,9 @@ export default function Privacy() {
         </p>
 
         <p>
-          <strong>Questions.</strong> Contact [Welfare Team / society email] with any question
-          about this notice.
+          <strong>Questions.</strong> Contact{' '}
+          <a href="mailto:sotonmuslimmedics@gmail.com">sotonmuslimmedics@gmail.com</a> with any
+          question about this notice.
         </p>
       </div>
     </>
